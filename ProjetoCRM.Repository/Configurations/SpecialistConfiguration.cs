@@ -4,20 +4,18 @@ using ProjetoCRM.Domain.Entities;
 
 namespace ProjetoCRM.Repository.Configurations;
 
-public class UserConfiguration : IEntityTypeConfiguration<User>
+public class SpecialistConfiguration : IEntityTypeConfiguration<Specialist>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Specialist> builder)
     {
-        builder.ToTable("Users");
+        builder.ToTable("Specialists");
         builder.HasKey(u => u.ID);
 
         builder.Property(u => u.Name).IsRequired(true).HasMaxLength(150);
-        builder.Property(u => u.Email).IsRequired(true).HasMaxLength(254);
-        builder.Property(u => u.Password).IsRequired(true).HasMaxLength(255);
         builder.Property(u => u.IsActive).IsRequired(true);
         builder.Property(u => u.CreatedAt).IsRequired(true).ValueGeneratedOnAdd();
         builder.Property(u => u.UpdatedAt);
 
-        builder.HasIndex(u => u.Email).IsUnique();
+        builder.HasOne(s => s.User).WithOne(u => u.Specialist).HasForeignKey<Specialist>(s => s.UserId);
     }
 }

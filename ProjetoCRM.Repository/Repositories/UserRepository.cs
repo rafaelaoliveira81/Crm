@@ -4,13 +4,10 @@ using ProjetoCRM.Repository.Context;
 
 namespace ProjetoCRM.Repository;
 
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository, IUserRepository
 {
-    private readonly ProjetoCRMContext _context;
-
-    public UserRepository(ProjetoCRMContext context)
+    public UserRepository(ProjetoCRMContext context) : base(context)
     {
-        _context = context;
     }
 
     public async Task<int> AddAsync(User user)

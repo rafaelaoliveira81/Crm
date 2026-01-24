@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoCRM.Api.Models.Response;
 using ProjetoCRM.Api.Models.Request;
 using ProjetoCRM.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-
 
 [ApiController]
 [Route("User")]

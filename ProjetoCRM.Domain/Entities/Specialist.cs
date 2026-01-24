@@ -1,15 +1,14 @@
 namespace ProjetoCRM.Domain.Entities;
 
-public class User : BaseEntity
+public class Specialist : BaseEntity
 {
     public int ID { get; set; }
     public string Name { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public User User { get; set; }
+    public int UserId { get; set; }
     public bool IsActive { get; set; }
-    public Specialist Specialist { get; set; }
 
-    public User()
+    public Specialist()
     {
         IsActive = true;
     }
