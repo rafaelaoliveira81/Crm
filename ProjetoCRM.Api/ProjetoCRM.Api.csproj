@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjetoCRM.Application\ProjetoCRM.Application.csproj" />
+    <ProjectReference Include="..\ProjetoCRM.Domain\ProjetoCRM.Domain.csproj" />
+    <ProjectReference Include="..\ProjetoCRM.Repository\ProjetoCRM.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

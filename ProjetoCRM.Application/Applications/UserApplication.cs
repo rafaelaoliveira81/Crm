@@ -1,5 +1,6 @@
-using System.Data.Common;
 using ProjetoCRM.Domain.Entities;
+
+namespace ProjetoCRM.Application;
 
 public class UserApplication : IUserApplication
 {
@@ -17,12 +18,12 @@ public class UserApplication : IUserApplication
 
         // Valida se a senha foi preenchida
         if (string.IsNullOrWhiteSpace(user.Password))
-            throw new Exception("A senha do usuário deve ser informada.");
+            throw new ArgumentException("A senha do usuário deve ser informada.");
 
         // Verifica se já existe outro usuário utilizando o e-mail informado
-        var userEntity = _userRepository.GetByEmailAsync(user.Email);
+        var userEntity = await _userRepository.GetByEmailAsync(user.Email);
         if (userEntity != null)
-            throw new Exception("Já existe usuário com o e-mail informado.");
+            throw new ArgumentException("Já existe usuário com o e-mail informado.");
 
         return await _userRepository.AddAsync(user);
     }
@@ -37,7 +38,7 @@ public class UserApplication : IUserApplication
         var userEntity = await _userRepository.GetByEmailAsync(emailUserDTO);
 
         if (userEntity == null)
-            throw new Exception("Usuário não localizado.");
+            throw new KeyNotFoundException("Usuário não localizado.");
 
         return userEntity;
     }
@@ -60,7 +61,7 @@ public class UserApplication : IUserApplication
 
         // Caso exista um usuário com o mesmo e-mail e não seja o próprio usuário que está sendo atualizado, lança exceção
         if (user != null && user.ID != userEntity.ID)
-            throw new Exception("Já existe um usuário com o e-mail informado.");
+            throw new ArgumentException("Já existe um usuário com o e-mail informado.");
 
         // Atualiza os dados do usuário existente
         userEntity.Name = userDTO.Name;
@@ -93,10 +94,10 @@ public class UserApplication : IUserApplication
         var userEntity = await _userRepository.GetByIdAsync(userDTO.ID);
 
         if (string.IsNullOrWhiteSpace(currentPassword))
-            throw new Exception("A senha atual deve ser informada.");
+            throw new ArgumentException("A senha atual deve ser informada.");
 
         if (userEntity.Password != currentPassword)
-            throw new Exception("Senha atual incorreta.");
+            throw new UnauthorizedAccessException("Senha atual incorreta.");
 
         userEntity.Password = userDTO.Password;
 
@@ -107,13 +108,13 @@ public class UserApplication : IUserApplication
     private static void ValidateUserInformation(User user)
     {
         if (user == null)
-            throw new Exception("Usuário não pode ser vazio.");
+            throw new ArgumentException("Usuário não pode ser vazio.");
 
         if (string.IsNullOrWhiteSpace(user.Name))
-            throw new Exception("O nome do usuário deve ser informado.");
+            throw new ArgumentException("O nome do usuário deve ser informado.");
 
         if (string.IsNullOrWhiteSpace(user.Email))
-            throw new Exception("O e-mail do usuário deve ser informado.");
+            throw new ArgumentException("O e-mail do usuário deve ser informado.");
     }
 
     private async Task<User> ValidateUserExistsByIdAsync(int idUserDTO)
@@ -121,7 +122,7 @@ public class UserApplication : IUserApplication
         var userEntity = await _userRepository.GetByIdAsync(idUserDTO);
 
         if (userEntity == null)
-            throw new Exception("Usuário não localizado.");
+            throw new KeyNotFoundException("Usuário não localizado.");
 
         return userEntity;
     }
