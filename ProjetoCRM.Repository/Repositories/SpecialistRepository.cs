@@ -30,7 +30,7 @@ public class SpecialistRepository : BaseRepository, ISpecialistRepository
 
     public async Task<IEnumerable<Specialist>> GetAllAsync()
     {
-        return await _context.Specialists.ToListAsync();
+        return await _context.Specialists.Where(s => s.IsActive == true).ToListAsync();
     }
 
     public async Task UpdateAsync(Specialist specialist)

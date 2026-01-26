@@ -85,6 +85,10 @@ public class UserController : ControllerBase
 
             return Ok(userResponse);
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (KeyNotFoundException ex)
         {
             return NotFound(ex.Message);

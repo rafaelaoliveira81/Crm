@@ -35,6 +35,9 @@ public class UserApplication : IUserApplication
 
     public async Task<User> GetByEmailAsync(string emailUserDTO)
     {
+        if (string.IsNullOrWhiteSpace(emailUserDTO))
+            throw new ArgumentException("Email não pode ser vazio");
+
         var userEntity = await _userRepository.GetByEmailAsync(emailUserDTO);
 
         if (userEntity == null)

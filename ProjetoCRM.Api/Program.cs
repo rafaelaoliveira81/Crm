@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adicione serviços ao contêiner.
 builder.Services.AddScoped<IUserApplication, UserApplication>();
+builder.Services.AddScoped<ISpecialistApplication, SpecialistApplication>();
 
 // Adicione as interfaces de banco de dados
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 
 // Adiciona os serviços
 
