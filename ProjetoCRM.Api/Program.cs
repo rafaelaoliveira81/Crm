@@ -8,11 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserApplication, UserApplication>();
 builder.Services.AddScoped<ISpecialistApplication, SpecialistApplication>();
 builder.Services.AddScoped<IClientApplication, ClientApplication>();
+builder.Services.AddScoped<IAppointmentApplication, AppointmentApplication>();
 
 // Adicione as interfaces de banco de dados
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
 // Adiciona os serviços
 
 builder.Services.AddControllers();

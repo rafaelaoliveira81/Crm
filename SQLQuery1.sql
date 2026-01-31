@@ -36,3 +36,28 @@ CREATE TABLE Clients (
 	CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UpdatedAt DATETIME NULL
 );
+
+CREATE TABLE Appointments (
+	ID INT IDENTITY(1,1) PRIMARY KEY,
+	StartAt DATETIME NOT NULL,
+	EndAt DATETIME NOT NULL,
+	Status INT NOT NULL,
+	Description NVARCHAR(500) NULL,
+	ClientID INT NULL,
+	SpecialistId INT NULL,
+	UserId INT NULL,
+	CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+	UpdatedAt DATETIME NULL,
+
+	CONSTRAINT FK_Appointments_Clients
+		FOREIGN KEY (ClientID)
+		REFERENCES Clients(ID),
+
+	CONSTRAINT FK_Appointments_Specialists
+		FOREIGN KEY (SpecialistId)
+		REFERENCES Specialists(ID),
+
+	CONSTRAINT FK_Appointments_Users
+		FOREIGN KEY (UserId)
+		REFERENCES Users(ID)
+);

@@ -22,13 +22,9 @@ public class SpecialistApplication : ISpecialistApplication
             throw new ArgumentException("Já existe especialista com o nome informado.");
 
         if (specialistDTO.UserId > 0)
-        {
             await GetUserByIdAsync(specialistDTO);
-
-            return await _specialistRepository.AddAsync(specialistDTO);
-        }
-
-        specialistDTO.UserId = null;
+        else
+            specialistDTO.UserId = null;
 
         return await _specialistRepository.AddAsync(specialistDTO);
     }
@@ -85,7 +81,9 @@ public class SpecialistApplication : ISpecialistApplication
         if (specialist != null && specialist.ID != specialistDTO.ID)
             throw new ArgumentException("Já existe Especialista com o nome informado.");
 
-        if (specialistDTO.UserId == 0)
+        if (specialistDTO.UserId > 0)
+            await GetUserByIdAsync(specialistDTO);
+        else
             specialistDTO.UserId = null;
 
         specialistEntity.Name = specialistDTO.Name;

@@ -14,12 +14,14 @@ public class ProjetoCRMContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Specialist> Specialists { get; set; }
     public DbSet<Client> Clients { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new SpecialistConfiguration());
         modelBuilder.ApplyConfiguration(new ClientConfiguration());
+        modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

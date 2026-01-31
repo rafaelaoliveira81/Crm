@@ -7,6 +7,7 @@ public class Specialist : BaseEntity
     public User User { get; set; }
     public int? UserId { get; set; }
     public bool IsActive { get; set; }
+    public List<Appointment> Appointments { get; set; }
 
     public Specialist()
     {
