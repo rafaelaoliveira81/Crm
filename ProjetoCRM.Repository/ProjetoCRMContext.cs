@@ -15,6 +15,9 @@ public class ProjetoCRMContext : DbContext
     public DbSet<Specialist> Specialists { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<Plan> Plans { get; set; }
+    public DbSet<Module> Modules { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +25,9 @@ public class ProjetoCRMContext : DbContext
         modelBuilder.ApplyConfiguration(new SpecialistConfiguration());
         modelBuilder.ApplyConfiguration(new ClientConfiguration());
         modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
+        modelBuilder.ApplyConfiguration(new PlanConfiguration());
+        modelBuilder.ApplyConfiguration(new ModuleConfiguration());
+        modelBuilder.ApplyConfiguration(new AccountConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }
