@@ -10,28 +10,33 @@ public class ModuleRepository : BaseRepository, IModuleRepository
     {
     }
 
-    public Task AddAsync(Module module)
+    public async Task<int> AddAsync(Module module)
     {
-        throw new NotImplementedException();
+        await _context.Modules.AddAsync(module);
+        await _context.SaveChangesAsync();
+
+        return module.Id;
     }
 
-    public Task DeleteAsync(Module module)
+    public async Task DeleteAsync(Module module)
     {
-        throw new NotImplementedException();
+        _context.Modules.Remove(module);
+        await _context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<Module>> GetAllAsync()
+    public async Task<IEnumerable<Module>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Modules.ToListAsync();
     }
 
-    public Task<Module> GetByIdAsync(int id)
+    public async Task<Module> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Modules.FindAsync(id);
     }
 
-    public Task UpdateAsync(Module module)
+    public async Task UpdateAsync(Module module)
     {
-        throw new NotImplementedException();
+        _context.Modules.Update(module);
+        await _context.SaveChangesAsync();
     }
 }

@@ -9,35 +9,33 @@ public class AccountRepository : BaseRepository, IAccountRepository
     public AccountRepository(ProjetoCRMContext context) : base(context)
     {
     }
-    public async Task<Account> GetAccountByIdAsync(int accountId)
+    public async Task<Account> GetByIdAsync(int accountId)
     {
         return await _context.Accounts.FindAsync(accountId);
     }
 
-    public async Task<IEnumerable<Account>> GetAllAccountsAsync()
+    public async Task<IEnumerable<Account>> GetAllAsync()
     {
         return await _context.Accounts.ToListAsync();
     }
 
-    public async Task AddAccountAsync(Account account)
+    public async Task<int> AddAsync(Account account)
     {
         await _context.Accounts.AddAsync(account);
         await _context.SaveChangesAsync();
+
+        return account.Id;
     }
 
-    public async Task UpdateAccountAsync(Account account)
+    public async Task UpdateAsync(Account account)
     {
         _context.Accounts.Update(account);
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAccountAsync(int accountId)
+    public async Task DeleteAsync(Account account)
     {
-        var account = await GetAccountByIdAsync(accountId);
-        if (account != null)
-        {
-            _context.Accounts.Remove(account);
-            await _context.SaveChangesAsync();
-        }
+        _context.Accounts.Remove(account);
+        await _context.SaveChangesAsync();
     }
 }
